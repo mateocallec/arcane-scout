@@ -1,0 +1,15 @@
+{
+  "name": "arcane-scout",
+  "version": "1.0.0",
+  "private": true,
+  "description": "A professional Chrome DevTools extension for API traffic inspection and web pentesting.",
+  "scripts": {
+    "install:deps": "bash scripts/install.sh",
+    "build":        "bash scripts/build.sh",
+    "package":      "bash scripts/package.sh",
+    "lint":         "bash scripts/lint.sh"
+  },
+  "devDependencies": {
+    "eslint": "^8.57.1"
+  }
+}

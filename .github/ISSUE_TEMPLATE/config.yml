@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Security vulnerability
+    url: https://github.com/mateocallec/arcane-scout/security/advisories/new
+    about: Please report security issues through GitHub's private advisory system. See SECURITY.md for details.
+  - name: Feature proposal (email)
+    url: mailto:mateo@callec.net
+    about: For detailed feature proposals, feel free to reach out by email.

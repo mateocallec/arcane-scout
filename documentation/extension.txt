@@ -1,0 +1,42 @@
+Arcane Scout is a Chrome DevTools extension for API traffic inspection and web application security testing. Built for penetration testers, bug bounty hunters, and security-conscious developers who need more than the Network tab.
+
+
+── API INSPECTOR ──────────────────────────────────────
+
+Capture every XHR and Fetch request in real time as you browse. Each request is logged with its method, endpoint, status code, and timestamp. Click any row to open a full detail drawer with five tabs:
+
+• Overview — URL, status, timing, and a one-click cURL export
+• Headers — all request and response headers, neatly grouped
+• Payload — request body with JSON pretty-printing and form data decoding
+• Response — response body with an HTML preview (sandboxed iframe), inline image, video, and audio viewers
+• Replay — edit and resend any captured request directly from the panel
+
+Beyond the request table, three additional explorer views give you deeper insight:
+
+• Routes — a collapsible tree of all captured path segments, filterable with a single click
+• Header Auditor — flags missing or misconfigured security headers (CSP, HSTS, X-Frame-Options, and more) with severity ratings
+• Cookies — lists every cookie on the current domain with enable/disable checkboxes; state persists across reloads but clears when the tab is closed
+
+Export your full session as JSON or HAR for use in other tools.
+
+
+── PENTEST TOOLS ──────────────────────────────────────
+
+A dedicated panel with four built-in tools:
+
+• Custom Request — build and send arbitrary HTTP requests with full control over method, URL, headers, and body; responses render inline with the same media viewers
+• HTTP Downgrade — test whether a target enforces HTTPS or silently accepts plain HTTP connections
+• HTTP Inspector — view raw response headers and body without any browser normalisation
+• Vulnerability Disclosure — automatically fetches /.well-known/security.txt from the current domain (with fallback to www and the bare domain), parses all RFC 9116 fields, renders clickable contact and policy links, and shows an expiry validity badge
+
+
+── PERMISSIONS ────────────────────────────────────────
+
+Arcane Scout requests only the permissions it needs:
+
+• storage — persists captured requests and cookie state across page reloads within the same session
+• cookies — reads and toggles cookies for the inspected tab
+• tabs — detects tab closure to clean up session data
+• host_permissions (<all_urls>) — required to capture network requests on any site you inspect and to fetch security.txt files cross-origin
+
+No data ever leaves your browser. All processing happens locally.

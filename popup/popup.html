@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>API Inspector</title>
+    <link rel="stylesheet" href="popup.css" />
+  </head>
+  <body>
+
+    <div id="toolbar">
+      <span class="brand">
+        <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
+          <circle cx="3" cy="8" r="2" fill="#4fc1ff"/>
+          <circle cx="13" cy="8" r="2" fill="#4ec9b0"/>
+          <line x1="5" y1="8" x2="11" y2="8" stroke="#858585" stroke-width="1.5"/>
+          <polyline points="9,5.5 12,8 9,10.5" stroke="#4ec9b0" stroke-width="1.5" fill="none" stroke-linejoin="round"/>
+        </svg>
+        API Inspector
+      </span>
+      <span id="req-counter" class="counter">0 captured</span>
+      <button id="btn-refresh" class="btn-icon" title="Refresh">
+        <svg width="13" height="13" viewBox="0 0 16 16" fill="none">
+          <path d="M13.5 8A5.5 5.5 0 1 1 8 2.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          <polyline points="8,1 11,2.5 8,4" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linejoin="round"/>
+        </svg>
+      </button>
+    </div>
+
+    <!-- ── Tab bar ────────────────────────────────────────────── -->
+    <div id="popup-tabs">
+      <button class="pop-tab active">API Inspector</button>
+    </div>
+
+    <div id="hint">
+      Open <strong>DevTools (F12) → API Inspector</strong> for headers, payload &amp; replay.
+    </div>
+
+    <div id="table-wrapper">
+      <table id="route-table">
+        <thead>
+          <tr>
+            <th class="col-method">Method</th>
+            <th class="col-endpoint">Endpoint</th>
+            <th class="col-status">Status</th>
+            <th class="col-time">Time</th>
+          </tr>
+        </thead>
+        <tbody id="route-body">
+          <tr id="empty-row">
+            <td colspan="4" class="empty-cell">
+              No API requests captured yet.<br>
+              Interact with the inspected page to see traffic.
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <script src="popup.js"></script>
+  </body>
+</html>

@@ -1,0 +1,23 @@
+cff-version: 1.2.0
+message: "If you use or reference Arcane Scout in your work, please cite it as below."
+type: software
+title: "Arcane Scout — API Pentesting Toolkit"
+version: 1.0.0
+date-released: "2026-05-26"
+license-url: "https://github.com/mateocallec/arcane-scout/blob/main/LICENSE"
+abstract: "A professional Chrome DevTools extension for API traffic inspection and web application penetration testing."
+authors:
+  - given-names: Mateo
+    family-names: Callec
+    email: mateo@callec.net
+    website: "https://mateocallec.com"
+    orcid: "https://orcid.org/0009-0000-8025-5350"
+repository-code: "https://github.com/mateocallec/arcane-scout"
+url: "https://chromewebstore.google.com"
+keywords:
+  - chrome-extension
+  - devtools
+  - api
+  - pentesting
+  - security
+  - network-inspector

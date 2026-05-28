@@ -1,0 +1,41 @@
+{
+  "manifest_version": 3,
+  "name": "Arcane Scout — API Pentesting Toolkit",
+  "short_name": "Arcane Scout",
+  "version": "1.0.0",
+  "description": "A professional Chrome DevTools extension for API traffic inspection and web pentesting.",
+  "devtools_page": "devtools.html",
+  "background": {
+    "service_worker": "background.js",
+    "type": "module"
+  },
+  "action": {
+    "default_title": "Open API Inspector",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    }
+  },
+  "permissions": [
+    "contextMenus",
+    "storage",
+    "cookies",
+    "tabs"
+  ],
+  "host_permissions": ["<all_urls>"],
+  "commands": {
+    "open-api-inspector": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+A",
+        "mac": "Command+Shift+A"
+      },
+      "description": "Open API Inspector quick-view"
+    }
+  },
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  }
+}

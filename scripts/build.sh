@@ -48,8 +48,8 @@ LINT_FILES=(
   panel/network.js
   panel/ui.js
   panel/panel.js
-  popup/popup.js
   pentest/pentest.js
+  docs/docs.js
 )
 
 LINT_ERRORS=0
@@ -83,8 +83,8 @@ step "3/3" "Assembling dist/"
 # Clean and recreate
 rm -rf "${DIST_DIR}"
 mkdir -p "${DIST_DIR}/panel"
-mkdir -p "${DIST_DIR}/popup"
 mkdir -p "${DIST_DIR}/pentest"
+mkdir -p "${DIST_DIR}/docs"
 mkdir -p "${DIST_DIR}/icons"
 
 # Root-level extension files
@@ -112,17 +112,6 @@ for f in "${COPY_PANEL[@]}"; do
   ok "  ${f}"
 done
 
-# Popup directory
-COPY_POPUP=(
-  popup/popup.html
-  popup/popup.css
-  popup/popup.js
-)
-for f in "${COPY_POPUP[@]}"; do
-  cp "${f}" "${DIST_DIR}/${f}"
-  ok "  ${f}"
-done
-
 # Pentest directory
 COPY_PENTEST=(
   pentest/pentest.html
@@ -130,6 +119,17 @@ COPY_PENTEST=(
   pentest/pentest.js
 )
 for f in "${COPY_PENTEST[@]}"; do
+  cp "${f}" "${DIST_DIR}/${f}"
+  ok "  ${f}"
+done
+
+# Docs directory
+COPY_DOCS=(
+  docs/docs.html
+  docs/docs.css
+  docs/docs.js
+)
+for f in "${COPY_DOCS[@]}"; do
   cp "${f}" "${DIST_DIR}/${f}"
   ok "  ${f}"
 done
@@ -156,12 +156,12 @@ REQUIRED_FILES=(
   "${DIST_DIR}/panel/network.js"
   "${DIST_DIR}/panel/ui.js"
   "${DIST_DIR}/panel/panel.js"
-  "${DIST_DIR}/popup/popup.html"
-  "${DIST_DIR}/popup/popup.css"
-  "${DIST_DIR}/popup/popup.js"
   "${DIST_DIR}/pentest/pentest.html"
   "${DIST_DIR}/pentest/pentest.css"
   "${DIST_DIR}/pentest/pentest.js"
+  "${DIST_DIR}/docs/docs.html"
+  "${DIST_DIR}/docs/docs.css"
+  "${DIST_DIR}/docs/docs.js"
   "${DIST_DIR}/icons/icon16.png"
   "${DIST_DIR}/icons/icon48.png"
   "${DIST_DIR}/icons/icon128.png"

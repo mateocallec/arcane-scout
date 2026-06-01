@@ -820,9 +820,60 @@ export const UIManager = (() => {
   const _ckTabId = chrome.devtools.inspectedWindow.tabId;
   const _CK_SK   = `ck_${_ckTabId}`;
 
+  // Cross-browser: Firefox uses Promise-based browser.devtools API;
+  // Chrome uses a callback. A 4 s timeout prevents infinite "Loading…".
+  function _evalPageUrl() {
+    return new Promise((resolve) => {
+      let settled = false;
+      const timer  = setTimeout(() => { if (!settled) { settled = true; resolve(''); } }, 4000);
+      const finish = (v) => { if (!settled) { settled = true; clearTimeout(timer); resolve(v || ''); } };
+      try {
+        if (typeof browser !== 'undefined' && browser.devtools?.inspectedWindow?.eval) {
+          browser.devtools.inspectedWindow.eval('location.href')
+            .then(([r, ex]) => finish(ex?.isException || ex?.isError ? '' : r))
+            .catch(() => finish(''));
+          return;
+        }
+        const ret = chrome.devtools.inspectedWindow.eval('location.href', (r, ex) => {
+          if (ex && (ex.isException || ex.isError)) finish('');
+          else finish(r);
+        });
+        if (ret && typeof ret.then === 'function') {
+          ret.then(([r, ex]) => {
+            if (ex && (ex.isException || ex.isError)) finish('');
+            else finish(r);
+          }).catch(() => finish(''));
+        }
+      } catch (_) { finish(''); }
+    });
+  }
+
+  // Route all cookie API calls through the background script — Firefox
+  // restricts chrome.cookies.* in devtools panel pages.
+  function _bgCookieMsg(msg) {
+    return new Promise((resolve) => {
+      try {
+        chrome.runtime.sendMessage(msg, (r) => {
+          if (chrome.runtime.lastError) { resolve(null); return; }
+          resolve(r || null);
+        });
+      } catch (_) { resolve(null); }
+    });
+  }
+
+  function _getAllCookies(url) {
+    return _bgCookieMsg({ type: 'getCookies', url })
+      .then((r) => (r && r.cookies) || []);
+  }
+
   function _ckGetDisabled() {
     return new Promise((resolve) => {
-      chrome.storage.session.get({ [_CK_SK]: [] }, (r) => resolve(r[_CK_SK] || []));
+      try {
+        chrome.storage.session.get({ [_CK_SK]: [] }, (r) => {
+          if (chrome.runtime.lastError) { resolve([]); return; }
+          resolve((r && r[_CK_SK]) || []);
+        });
+      } catch (_e) { resolve([]); }
     });
   }
 
@@ -841,26 +892,22 @@ export const UIManager = (() => {
     if (!container) return;
     container.innerHTML = '<div class="etab-empty">Loading…</div>';
 
-    let pageUrl = '';
-    try {
-      pageUrl = await new Promise((resolve, reject) => {
-        chrome.devtools.inspectedWindow.eval('location.href', (result, ex) => {
-          if (ex) reject(new Error('eval failed')); else resolve(result || '');
-        });
-      });
-    } catch (_e) {
-      container.innerHTML = '<div class="etab-empty">Cannot determine page URL.</div>';
-      return;
-    }
+    const pageUrl = await _evalPageUrl();
     if (!pageUrl) {
       container.innerHTML = '<div class="etab-empty">Cannot determine page URL.</div>';
       return;
     }
 
-    const [liveCookies, disabledList] = await Promise.all([
-      new Promise((resolve) => chrome.cookies.getAll({ url: pageUrl }, resolve)),
-      _ckGetDisabled(),
-    ]);
+    let liveCookies, disabledList;
+    try {
+      [liveCookies, disabledList] = await Promise.all([
+        _getAllCookies(pageUrl),
+        _ckGetDisabled(),
+      ]);
+    } catch (_e) {
+      container.innerHTML = '<div class="etab-empty">Could not load cookies.</div>';
+      return;
+    }
 
     const allCookies = [
       ...liveCookies.map((c) => ({ ...c, _enabled: true })),
@@ -926,7 +973,7 @@ export const UIManager = (() => {
             if (!disabled.some((d) => d.name === ck.name && d.domain === ck.domain && d.path === ck.path))
               disabled.push(ck);
             await _ckSetDisabled(disabled);
-            await new Promise((res) => chrome.cookies.remove({ url: _ckCookieUrl(ck), name: ck.name }, res));
+            await _bgCookieMsg({ type: 'removeCookie', url: _ckCookieUrl(ck), name: ck.name });
             tr.classList.add('ck-row-disabled');
           } else {
             const disabled = await _ckGetDisabled();
@@ -943,7 +990,7 @@ export const UIManager = (() => {
               if (saved.domain)         params.domain = saved.domain;
               if (saved.expirationDate) params.expirationDate = saved.expirationDate;
               if (saved.sameSite && saved.sameSite !== 'unspecified') params.sameSite = saved.sameSite;
-              await new Promise((res) => chrome.cookies.set(params, res));
+              await _bgCookieMsg({ type: 'setCookie', params });
               await _ckSetDisabled(disabled.filter((d) => !(d.name === ck.name && d.domain === ck.domain && d.path === ck.path)));
             }
             tr.classList.remove('ck-row-disabled');

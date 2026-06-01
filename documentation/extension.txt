@@ -1,4 +1,4 @@
-Arcane Scout is a Chrome DevTools extension for API traffic inspection and web application security testing. Built for penetration testers, bug bounty hunters, and security-conscious developers who need more than the Network tab.
+Arcane Scout is a Chrome and Firefox DevTools extension for API traffic inspection and web application security testing. Built for penetration testers, bug bounty hunters, and security-conscious developers who need more than the Network tab.
 
 
 ── API INSPECTOR ──────────────────────────────────────
@@ -22,9 +22,14 @@ Export your full session as JSON or HAR for use in other tools.
 
 ── PENTEST TOOLS ──────────────────────────────────────
 
-A dedicated panel with four built-in tools:
+A dedicated panel with nine built-in tools:
 
+• Encoder / Decoder — encode and decode strings across Base64, URL, HTML, hex, and more
+• JWT — inspect and decode JSON Web Tokens; view header, payload, and signature fields
+• Payload Generator — generate fuzzing payloads for common injection categories (SQLi, XSS, path traversal, etc.)
 • Custom Request — build and send arbitrary HTTP requests with full control over method, URL, headers, and body; responses render inline with the same media viewers
+• JSON Tools — pretty-print, minify, and diff JSON payloads
+• XOR — XOR two values with a configurable key; useful for analysing obfuscated data
 • HTTP Downgrade — test whether a target enforces HTTPS or silently accepts plain HTTP connections
 • HTTP Inspector — view raw response headers and body without any browser normalisation
 • Vulnerability Disclosure — automatically fetches /.well-known/security.txt from the current domain (with fallback to www and the bare domain), parses all RFC 9116 fields, renders clickable contact and policy links, and shows an expiry validity badge
@@ -36,7 +41,7 @@ Arcane Scout requests only the permissions it needs:
 
 • storage — persists captured requests and cookie state across page reloads within the same session
 • cookies — reads and toggles cookies for the inspected tab
-• tabs — detects tab closure to clean up session data
+• contextMenus — adds a right-click menu entry to open the Help & Documentation page
 • host_permissions (<all_urls>) — required to capture network requests on any site you inspect and to fetch security.txt files cross-origin
 
 No data ever leaves your browser. All processing happens locally.

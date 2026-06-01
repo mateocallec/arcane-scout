@@ -2,7 +2,7 @@
 
 ## Overview
 
-Arcane Scout is a Chrome DevTools extension. It adds two panels to the DevTools:
+Arcane Scout is a Chrome and Firefox DevTools extension. It adds two panels to the DevTools:
 
 - **API Inspector** — captures and analyses every XHR and Fetch request made by the inspected page
 - **Pentest Tools** — an integrated toolkit for manual web application security testing
@@ -72,9 +72,29 @@ The **cURL** button in the Overview tab copies a ready-to-run `curl` command to 
 
 ## Pentest Tools
 
+### Encoder / Decoder
+
+Encode and decode strings across multiple schemes: Base64, URL encoding, HTML entities, hex, and more. Useful for analysing obfuscated parameters or crafting payloads.
+
+### JWT
+
+Paste a JSON Web Token to inspect its decoded header and payload fields. Useful for identifying algorithm misconfigurations, missing claims, or sensitive data stored in tokens.
+
+### Payload Generator
+
+Generate fuzzing payloads for common injection categories including SQL injection, XSS, path traversal, and command injection. Select a category to get a ready-to-use list.
+
 ### Custom Request
 
 A full HTTP request builder. Set the method, target URL, add arbitrary headers, and supply a body. The response is displayed inline with the same media viewers as the API Inspector (HTML iframe, image, video, audio, or raw text).
+
+### JSON Tools
+
+Pretty-print, minify, and diff JSON payloads. Useful for comparing API responses or reformatting copied JSON for readability.
+
+### XOR
+
+XOR two values with a configurable key. Useful for analysing obfuscated strings or data encoded with simple XOR ciphers.
 
 ### HTTP Downgrade
 

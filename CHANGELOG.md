@@ -6,6 +6,19 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ---
 
+## [1.1.0] — 2026-06-01
+
+### Added
+- Firefox support (Firefox 115+): dual `service_worker` + `scripts` background, gecko ID in manifest, `_resourceType` fallback via MIME inference for network capture, cross-browser `devtools.inspectedWindow.eval` handling, and cookie API proxied through the background script
+
+### Changed
+- HTTP Downgrade tool now probes both HTTP and HTTPS concurrently and checks for the `Strict-Transport-Security` header on HTTPS responses; results are classified into six categories: Vulnerable, Redirect / No HSTS, Redirect + HSTS, HSTS Enforced, HTTPS Only, and Unreachable
+
+### Fixed
+- Removed unused `tabs` permission (flagged by Chrome Web Store policy review)
+
+---
+
 ## [1.0.0] — 2026-05-26
 
 ### Added

@@ -30,8 +30,8 @@ FILES=(
   panel/network.js
   panel/ui.js
   panel/panel.js
-  popup/popup.js
   pentest/pentest.js
+  docs/docs.js
 )
 
 ERRORS=0

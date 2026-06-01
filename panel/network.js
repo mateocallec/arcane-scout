@@ -18,10 +18,25 @@ export const NetworkCapture = (() => {
   const _seen      = new Set();  // startedDateTime dedup between getHAR and onRequestFinished
   let _idCounter = 0;
 
-  const API_TYPES = new Set(['xhr', 'fetch']);
+  const API_TYPES = new Set(['xhr', 'fetch', 'xmlhttprequest']);
 
   function _shouldCapture(entry) {
-    return API_TYPES.has((entry._resourceType || '').toLowerCase());
+    const rtype = (entry._resourceType || '').toLowerCase();
+    if (API_TYPES.has(rtype)) return true;
+    // Known non-API resource type → skip
+    if (rtype) return false;
+    // Firefox fallback: _resourceType absent — infer from response MIME type
+    const mime = (entry.response?.content?.mimeType || '').split(';')[0].trim().toLowerCase();
+    const url  = entry.request?.url || '';
+    if (!url || url.startsWith('data:') || url.startsWith('blob:')) return false;
+    return (
+      mime.includes('json') ||
+      mime.includes('xml') ||
+      mime === 'text/plain' ||
+      mime.includes('form-data') ||
+      mime.includes('form-urlencoded') ||
+      (mime.startsWith('application/') && !mime.includes('javascript') && !mime.includes('wasm'))
+    );
   }
 
   function _parseEntry(entry, body, encoding) {

@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Arcane Scout — Documentation</title>
+    <link rel="stylesheet" href="docs.css" />
+  </head>
+  <body>
+
+    <header class="site-header">
+      <div class="header-inner">
+        <div class="brand">
+          <svg width="20" height="20" viewBox="0 0 16 16" fill="none">
+            <path d="M3 13 L8 3 L13 13" stroke="#e06c75" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+            <circle cx="8" cy="10" r="1.5" fill="#e06c75"/>
+          </svg>
+          <span class="brand-name">Arcane Scout</span>
+          <span class="brand-badge">Documentation</span>
+        </div>
+        <span class="version-tag">v1.1.0</span>
+      </div>
+    </header>
+
+    <div class="page-layout">
+
+      <!-- Sidebar nav -->
+      <nav class="sidebar">
+        <ul class="nav-list">
+          <li><a href="#getting-started" class="nav-link">Getting Started</a></li>
+          <li class="nav-section">API Inspector</li>
+          <li><a href="#api-requests" class="nav-link nav-sub">Requests tab</a></li>
+          <li><a href="#api-routes" class="nav-link nav-sub">Routes tab</a></li>
+          <li><a href="#api-header-auditor" class="nav-link nav-sub">Header Auditor</a></li>
+          <li><a href="#api-cookies" class="nav-link nav-sub">Cookies tab</a></li>
+          <li><a href="#api-detail" class="nav-link nav-sub">Detail Drawer</a></li>
+          <li class="nav-section">Pentest Tools</li>
+          <li><a href="#pt-encoder" class="nav-link nav-sub">Encoder / Decoder</a></li>
+          <li><a href="#pt-jwt" class="nav-link nav-sub">JWT Analyzer</a></li>
+          <li><a href="#pt-payloads" class="nav-link nav-sub">Payload Generator</a></li>
+          <li><a href="#pt-request" class="nav-link nav-sub">Custom Request</a></li>
+          <li><a href="#pt-json" class="nav-link nav-sub">JSON Tools</a></li>
+          <li><a href="#pt-xor" class="nav-link nav-sub">XOR</a></li>
+          <li><a href="#pt-downgrade" class="nav-link nav-sub">HTTP Downgrade</a></li>
+          <li><a href="#pt-httpinspect" class="nav-link nav-sub">HTTP Inspector</a></li>
+          <li><a href="#pt-vulndisclosure" class="nav-link nav-sub">Vuln Disclosure</a></li>
+          <li class="nav-section">Reference</li>
+          <li><a href="#permissions" class="nav-link nav-sub">Permissions</a></li>
+        </ul>
+      </nav>
+
+      <!-- Main content -->
+      <main class="content">
+
+        <!-- Getting started -->
+        <section id="getting-started" class="doc-section">
+          <h1>Getting Started</h1>
+          <p>Arcane Scout is a Chrome / Firefox DevTools extension. It injects two panels directly into the browser's built-in developer tools:</p>
+          <ul>
+            <li><strong>API Inspector</strong> — captures and analyses every XHR and Fetch request made by the inspected page.</li>
+            <li><strong>Pentest Tools</strong> — an integrated toolkit for manual web-application security testing.</li>
+          </ul>
+
+          <h2>Opening the extension</h2>
+          <div class="steps">
+            <div class="step">
+              <span class="step-num">1</span>
+              <div>Press <kbd>F12</kbd> (or <kbd>Cmd⌘ Opt⌥ I</kbd> on Mac) to open DevTools on any page.</div>
+            </div>
+            <div class="step">
+              <span class="step-num">2</span>
+              <div>Find the <strong>Arcane Scout</strong> tab in the DevTools tab bar at the top. It may be hidden behind the <strong>&raquo;</strong> overflow menu if the window is narrow.</div>
+            </div>
+            <div class="step">
+              <span class="step-num">3</span>
+              <div>The extension opens on the <strong>API Inspector</strong> panel. Use the tabs to switch between <em>Requests</em>, <em>Routes</em>, <em>Header Auditor</em>, <em>Cookies</em>, and <em>Pentest Tools</em>.</div>
+            </div>
+          </div>
+
+          <div class="info-box">
+            <strong>This page</strong> can be re-opened at any time via the extension icon in the toolbar or the right-click context menu <em>"Arcane Scout — Help &amp; Docs"</em>.
+          </div>
+        </section>
+
+        <!-- API Inspector -->
+        <section class="doc-section">
+          <h1>API Inspector</h1>
+          <p>Requests are captured automatically the moment the panel is open. Reload the page or trigger interactions to populate the table. Only XHR and Fetch traffic is captured — navigation, service workers, and static assets are not shown.</p>
+
+          <div id="api-requests">
+            <h2>Requests tab</h2>
+            <p>The main request table. Each row shows:</p>
+            <table class="doc-table">
+              <thead><tr><th>Column</th><th>Description</th></tr></thead>
+              <tbody>
+                <tr><td>Method</td><td>HTTP verb, colour-coded: GET blue, POST green, PUT amber, DELETE red, PATCH purple.</td></tr>
+                <tr><td>Endpoint</td><td>Host + path + query string. Hover to see the full URL.</td></tr>
+                <tr><td>Status</td><td>HTTP response code. Green for 2xx, amber for 3xx/4xx, red for 5xx.</td></tr>
+                <tr><td>Time</td><td>Wall-clock timestamp of the request.</td></tr>
+              </tbody>
+            </table>
+            <p>Use the <strong>filter bar</strong> to narrow rows by URL or method. Click any row to open the <a href="#api-detail">Detail Drawer</a>.</p>
+            <p>The <strong>Export ▾</strong> button saves captured traffic as <code>JSON</code> or <code>HAR</code>. <strong>Clear</strong> removes all captured requests from the current session.</p>
+          </div>
+
+          <div id="api-routes">
+            <h2>Routes tab</h2>
+            <p>A collapsible tree of all captured path segments. Click a node to filter the Requests tab to that route prefix. Click <strong>✕</strong> in the filter bar to clear the filter.</p>
+          </div>
+
+          <div id="api-header-auditor">
+            <h2>Header Auditor</h2>
+            <p>Analyses every captured response for missing or misconfigured security headers, including:</p>
+            <ul>
+              <li><code>Content-Security-Policy</code></li>
+              <li><code>Strict-Transport-Security</code></li>
+              <li><code>X-Frame-Options</code></li>
+              <li><code>X-Content-Type-Options</code></li>
+              <li><code>Referrer-Policy</code></li>
+              <li><code>Permissions-Policy</code></li>
+            </ul>
+            <p>Each entry shows the header name, its current value (or absence), and a severity rating.</p>
+          </div>
+
+          <div id="api-cookies">
+            <h2>Cookies tab</h2>
+            <p>Lists all cookies set on the current page's domain. Each row has a checkbox — uncheck it to <strong>delete</strong> the cookie from the browser for the current session. Re-check to restore it.</p>
+            <p>Cookie disable state persists across page reloads but is cleared when the tab is closed. Click <strong>Refresh</strong> to reload the list after a page interaction.</p>
+          </div>
+
+          <div id="api-detail">
+            <h2>Detail Drawer</h2>
+            <p>Click any request row to open the detail drawer. It has five tabs:</p>
+            <table class="doc-table">
+              <thead><tr><th>Tab</th><th>Contents</th></tr></thead>
+              <tbody>
+                <tr><td>Overview</td><td>URL, method, status, timing, response size, MIME type.</td></tr>
+                <tr><td>Headers</td><td>Request and response headers in a searchable table.</td></tr>
+                <tr><td>Payload</td><td>Request body — JSON pretty-printed, form data decoded, raw fallback.</td></tr>
+                <tr><td>Response</td><td>Response body — JSON pretty-printed, HTML sandboxed preview, image / video / audio viewers, raw text fallback.</td></tr>
+                <tr><td>Replay</td><td>Pre-fills the <a href="#pt-request">Custom Request</a> tab with this request's data so you can modify and resend it.</td></tr>
+              </tbody>
+            </table>
+            <p>The <strong>cURL</strong> button in the Overview tab copies a ready-to-run <code>curl</code> command to the clipboard, including all request headers, body, and the <code>-L --compressed</code> flags.</p>
+            <p>Right-clicking any row in the HTTP Downgrade or HTTP Inspector result tables shows a <em>"Send to Custom Request"</em> context menu item.</p>
+          </div>
+        </section>
+
+        <!-- Pentest Tools -->
+        <section class="doc-section">
+          <h1>Pentest Tools</h1>
+          <p>Access all tools via the <strong>Pentest Tools</strong> tab inside DevTools. The tabs across the top of the panel switch between tools.</p>
+
+          <div id="pt-encoder">
+            <h2>Encoder / Decoder</h2>
+            <p>Converts data between arbitrary encoding schemes in a single click. Supported formats:</p>
+            <div class="tag-list">
+              <span class="tag">Plain Text (UTF-8)</span>
+              <span class="tag">Base64</span>
+              <span class="tag">Base64 URL</span>
+              <span class="tag">Hex</span>
+              <span class="tag">Binary (01…)</span>
+              <span class="tag">URL Encoded</span>
+              <span class="tag">Double URL Encoded</span>
+              <span class="tag">HTML Entities</span>
+            </div>
+            <p>Select the <em>From</em> and <em>To</em> formats, paste input, and click <strong>Convert</strong>. Use <strong>⇅ Swap</strong> to reverse the conversion.</p>
+          </div>
+
+          <div id="pt-jwt">
+            <h2>JWT Analyzer</h2>
+            <p>Paste a JSON Web Token to instantly decode its header and payload. Features:</p>
+            <ul>
+              <li>Header and payload displayed as syntax-highlighted JSON.</li>
+              <li>Standard claims table (<code>iss</code>, <code>sub</code>, <code>exp</code>, <code>iat</code>, etc.) with human-readable timestamps.</li>
+              <li><strong>EXPIRED</strong> / <strong>VALID</strong> badge based on the <code>exp</code> claim.</li>
+              <li><strong>Re-encode</strong> — edit the payload JSON and re-sign with <code>alg: none</code> for testing broken JWT verification.</li>
+            </ul>
+            <div class="warn-box">
+              The browser cannot verify a JWT signature — it only decodes. Re-encoding uses <code>alg: none</code> (no signature). Use this only in controlled test environments.
+            </div>
+          </div>
+
+          <div id="pt-payloads">
+            <h2>Payload Generator</h2>
+            <p>Generates ready-to-use attack payloads. Three categories:</p>
+            <table class="doc-table">
+              <thead><tr><th>Category</th><th>Contexts / Options</th></tr></thead>
+              <tbody>
+                <tr>
+                  <td>XSS</td>
+                  <td>HTML tag, Attribute, JavaScript, SVG, Filter bypass. Or select <em>All contexts</em> for everything at once.</td>
+                </tr>
+                <tr>
+                  <td>SQL Injection</td>
+                  <td>MySQL / MariaDB, PostgreSQL, MSSQL, SQLite, Oracle. Covers UNION, stacked, time-based blind, OOB, and privilege escalation.</td>
+                </tr>
+                <tr>
+                  <td>CSRF PoC</td>
+                  <td>Generates a self-submitting HTML form targeting a URL. Add body parameters (one per line in <code>name=value</code> format).</td>
+                </tr>
+              </tbody>
+            </table>
+            <p>Click the <strong>⎘</strong> button next to any payload to copy it individually. <strong>Copy All</strong> copies every payload in the current list.</p>
+          </div>
+
+          <div id="pt-request">
+            <h2>Custom Request</h2>
+            <p>A full HTTP request builder. Set any method, URL, headers, cookies, query parameters, and body. Requests run from the extension context — no CORS restrictions apply.</p>
+            <p>Supported body types: <em>None</em>, <em>Raw</em>, <em>JSON</em> (validated before sending), <em>Form URL-encoded</em>, <em>XML</em>.</p>
+            <p>The response area shows status, elapsed time, body size, and response headers. The body viewer auto-detects HTML (sandboxed iframe), images, video, audio, and JSON.</p>
+            <p>The <strong>Replay</strong> tab in the Detail Drawer pre-fills this tool with any captured request's data.</p>
+          </div>
+
+          <div id="pt-json">
+            <h2>JSON Tools</h2>
+            <p>Paste any JSON and click <strong>Pretty Print</strong> to format it with syntax highlighting, or <strong>Minify</strong> to compact it. Errors are reported with the failing position.</p>
+          </div>
+
+          <div id="pt-xor">
+            <h2>XOR</h2>
+            <p>XOR a value against a key, both with configurable encoding. Input can be plain text, hex, or Base64. The key can be plain text or hex. Output can be hex, plain text, or Base64. Useful for obfuscated tokens and simple cipher analysis.</p>
+          </div>
+
+          <div id="pt-downgrade">
+            <h2>HTTP Downgrade</h2>
+            <p>Tests whether the resources loaded by the current page are accessible over plain HTTP (i.e., vulnerable to SSLstrip / MitM interception).</p>
+            <p><strong>How it works:</strong> clicking <em>Start Test</em> reloads the page, captures every network resource the browser requests, then concurrently probes each HTTPS URL with both an HTTP and an HTTPS HEAD request.</p>
+            <p>Each resource is classified into one of six categories:</p>
+            <table class="doc-table">
+              <thead><tr><th>Result</th><th>Meaning</th></tr></thead>
+              <tbody>
+                <tr><td class="badge-cell"><span class="badge badge-vuln">VULNERABLE</span></td><td>HTTP responds with 2xx — plaintext is fully accessible.</td></tr>
+                <tr><td class="badge-cell"><span class="badge badge-redirect">REDIRECT / NO HSTS</span></td><td>HTTP redirects to HTTPS, but the HTTPS response has no <code>Strict-Transport-Security</code> header — the redirect can be intercepted.</td></tr>
+                <tr><td class="badge-cell"><span class="badge badge-hsts">REDIRECT + HSTS</span></td><td>HTTP redirects to HTTPS, and HTTPS sends an HSTS header.</td></tr>
+                <tr><td class="badge-cell"><span class="badge badge-hsts">HSTS</span></td><td>The browser blocked the HTTP request internally (HSTS preload or cached policy).</td></tr>
+                <tr><td class="badge-cell"><span class="badge badge-blocked">HTTPS ONLY</span></td><td>Port 80 is unreachable — the server only listens on HTTPS.</td></tr>
+                <tr><td class="badge-cell"><span class="badge badge-blocked">UNREACHABLE</span></td><td>Both HTTP and HTTPS probes failed (timeout, DNS failure, etc.).</td></tr>
+              </tbody>
+            </table>
+            <div class="warn-box">
+              This tool triggers a full page reload. Any unsaved state in the inspected page will be lost.
+            </div>
+          </div>
+
+          <div id="pt-httpinspect">
+            <h2>HTTP Inspector</h2>
+            <p>Reloads the page and captures every <strong>plain HTTP</strong> request the browser makes: scripts, XHR/fetch, images, fonts, CSS, form submissions, iframes, and more.</p>
+            <p>Any resource loaded over HTTP is a potential mixed-content or interception risk. Click a row to open the Detail Drawer with full headers and response body.</p>
+            <div class="warn-box">
+              Like HTTP Downgrade, this tool triggers a full page reload.
+            </div>
+          </div>
+
+          <div id="pt-vulndisclosure">
+            <h2>Vuln Disclosure</h2>
+            <p>Fetches <code>/.well-known/security.txt</code> (RFC 9116) from the current domain and common variants (<code>www.</code> prefix, apex domain). Opens automatically when the tab is first selected.</p>
+            <p>Parsed fields:</p>
+            <div class="tag-list">
+              <span class="tag">Contact</span>
+              <span class="tag">Expires</span>
+              <span class="tag">Encryption</span>
+              <span class="tag">Acknowledgments</span>
+              <span class="tag">Preferred-Languages</span>
+              <span class="tag">Canonical</span>
+              <span class="tag">Policy</span>
+              <span class="tag">Hiring</span>
+            </div>
+            <p>URL fields are rendered as clickable links. The <code>Expires</code> field shows a <strong>VALID</strong> / <strong>EXPIRED</strong> badge. Click <strong>Open Raw ↗</strong> to view the raw file in a new tab.</p>
+          </div>
+        </section>
+
+        <!-- Reference -->
+        <section class="doc-section">
+          <h1>Reference</h1>
+
+          <div id="permissions">
+            <h2>Permissions</h2>
+            <table class="doc-table">
+              <thead><tr><th>Permission</th><th>Why it's needed</th></tr></thead>
+              <tbody>
+                <tr><td><code>contextMenus</code></td><td>Adds the right-click menu item to open this page.</td></tr>
+                <tr><td><code>storage</code></td><td>Persists cookie disable state and Custom Request pre-fill data across reloads.</td></tr>
+                <tr><td><code>cookies</code></td><td>Reads, deletes, and restores cookies for the inspected page's domain.</td></tr>
+                <tr><td><code>host_permissions: &lt;all_urls&gt;</code></td><td>Allows the Custom Request tool and HTTP Downgrade probes to fetch any URL without CORS restrictions.</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+      </main>
+    </div>
+
+    <script src="docs.js"></script>
+
+  </body>
+</html>

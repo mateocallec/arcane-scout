@@ -11,7 +11,7 @@
   [![Firefox](https://img.shields.io/badge/Firefox-Add--ons-orange?style=flat-square&logo=firefox&logoColor=white)](https://addons.mozilla.org/en-US/firefox/addon/arcane-scout/)
   [![Manifest](https://img.shields.io/badge/manifest-v3-green?style=flat-square)](manifest.json)
 
-  [Chrome Web Store](#) · [Firefox Add-ons](#) · [User Guide](documentation/guide.md) · [Changelog](CHANGELOG.md) · [Roadmap](ROADMAP.md)
+  [Chrome Web Store](#) · [Firefox Add-ons](https://addons.mozilla.org/en-US/firefox/addon/arcane-scout/) · [User Guide](documentation/guide.md) · [Changelog](CHANGELOG.md) · [Roadmap](ROADMAP.md)
 </div>
 
 ---

@@ -8,7 +8,7 @@
   [![Version](https://img.shields.io/badge/version-1.1.0-blue?style=flat-square)](CHANGELOG.md)
   [![License](https://img.shields.io/badge/license-Proprietary-red?style=flat-square)](LICENSE)
   [![Chrome](https://img.shields.io/badge/Chrome-Web%20Store-yellow?style=flat-square&logo=googlechrome&logoColor=white)](https://chromewebstore.google.com)
-  [![Firefox](https://img.shields.io/badge/Firefox-Add--ons-orange?style=flat-square&logo=firefox&logoColor=white)](https://addons.mozilla.org)
+  [![Firefox](https://img.shields.io/badge/Firefox-Add--ons-orange?style=flat-square&logo=firefox&logoColor=white)](https://addons.mozilla.org/en-US/firefox/addon/arcane-scout/)
   [![Manifest](https://img.shields.io/badge/manifest-v3-green?style=flat-square)](manifest.json)
 
   [Chrome Web Store](#) · [Firefox Add-ons](#) · [User Guide](documentation/guide.md) · [Changelog](CHANGELOG.md) · [Roadmap](ROADMAP.md)

@@ -29,7 +29,7 @@ Full usage instructions, tab-by-tab breakdowns, and feature details are in the *
 
 ## Installation
 
-Install from the **[Chrome Web Store](#)** *(link coming soon)* or **[Firefox Add-ons](#)** *(link coming soon)*, or load unpacked from the `dist/` folder via `chrome://extensions` (Chrome) or `about:debugging` (Firefox).
+Install from the **[Chrome Web Store](#)** *(link coming soon)* or **[Firefox Add-ons](https://addons.mozilla.org/en-US/firefox/addon/arcane-scout/)**, or load unpacked from the `dist/` folder via `chrome://extensions` (Chrome) or `about:debugging` (Firefox).
 
 ## Changelog
 

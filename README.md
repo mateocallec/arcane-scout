@@ -7,11 +7,11 @@
 
   [![Version](https://img.shields.io/badge/version-1.1.0-blue?style=flat-square)](CHANGELOG.md)
   [![License](https://img.shields.io/badge/license-Proprietary-red?style=flat-square)](LICENSE)
-  [![Chrome](https://img.shields.io/badge/Chrome-Web%20Store-yellow?style=flat-square&logo=googlechrome&logoColor=white)](https://chromewebstore.google.com)
+  [![Chrome](https://img.shields.io/badge/Chrome-Web%20Store-yellow?style=flat-square&logo=googlechrome&logoColor=white)](https://chromewebstore.google.com/detail/arcane-scout-%E2%80%94-api-pentes/hnggiimagffkeccfpbkbdpdfnnkopboc)
   [![Firefox](https://img.shields.io/badge/Firefox-Add--ons-orange?style=flat-square&logo=firefox&logoColor=white)](https://addons.mozilla.org/en-US/firefox/addon/arcane-scout/)
   [![Manifest](https://img.shields.io/badge/manifest-v3-green?style=flat-square)](manifest.json)
 
-  [Chrome Web Store](#) · [Firefox Add-ons](https://addons.mozilla.org/en-US/firefox/addon/arcane-scout/) · [User Guide](documentation/guide.md) · [Changelog](CHANGELOG.md) · [Roadmap](ROADMAP.md)
+  [Chrome Web Store](https://chromewebstore.google.com/detail/arcane-scout-%E2%80%94-api-pentes/hnggiimagffkeccfpbkbdpdfnnkopboc) · [Firefox Add-ons](https://addons.mozilla.org/en-US/firefox/addon/arcane-scout/) · [User Guide](documentation/guide.md) · [Changelog](CHANGELOG.md) · [Roadmap](ROADMAP.md)
 </div>
 
 ---
@@ -29,7 +29,7 @@ Full usage instructions, tab-by-tab breakdowns, and feature details are in the *
 
 ## Installation
 
-Install from the **[Chrome Web Store](#)** *(link coming soon)* or **[Firefox Add-ons](https://addons.mozilla.org/en-US/firefox/addon/arcane-scout/)**, or load unpacked from the `dist/` folder via `chrome://extensions` (Chrome) or `about:debugging` (Firefox).
+Install from the **[Chrome Web Store](https://chromewebstore.google.com/detail/arcane-scout-%E2%80%94-api-pentes/hnggiimagffkeccfpbkbdpdfnnkopboc)** or **[Firefox Add-ons](https://addons.mozilla.org/en-US/firefox/addon/arcane-scout/)**, or load unpacked from the `dist/` folder via `chrome://extensions` (Chrome) or `about:debugging` (Firefox).
 
 ## Changelog
 
